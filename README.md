@@ -4,7 +4,7 @@ See http://raumzeitlabor.de/wiki/Hausbus2 for the motivation and specification.
 
 ## Installing the library on your system
 
-        (cd rzlbus && gomake && sudo gomake install)
+        go get github.com/raumzeitlabor/rzlbus
 
 ## Running the example
 
@@ -13,4 +13,4 @@ for now. See http://www.akadia.com/services/ssh_test_certificate.html
 
 Then, compile and run the example code:
 
-        gomake && ./example -rzlbus_listen="localhost:10444"
+        go build && ./example -rzlbus_listen="localhost:10444"
