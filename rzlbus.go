@@ -1,12 +1,12 @@
-// vim:ts=4:sw=4
+// vim:ts=4:sw=4:noexpandtab
 // Library which implements the RZLBus standard.
 // See http://raumzeitlabor.de/wiki/Hausbus2
 // © 2012 Michael Stapelberg (see also: LICENSE)
 package rzlbus
 
 import (
-	"http"
-	"json"
+	"net/http"
+	"encoding/json"
 	"log"
 	"fmt"
 	"io"
@@ -93,7 +93,7 @@ func handle_state(w http.ResponseWriter, r *http.Request) {
 		if err := json.Unmarshal(body, &postedState); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			io.WriteString(w, "Could not decode JSON into a single map: ")
-			io.WriteString(w, err.String())
+			io.WriteString(w, err.Error())
 			return
 		}
 
@@ -165,8 +165,9 @@ func Init() {
 	// Handle HTTP requests in a different Goroutine.
 	go func() {
 		err := http.ListenAndServeTLS(*http_listen, *ssl_cert, *ssl_key, nil)
+		//err := http.ListenAndServe(*http_listen, nil)
 		if err != nil {
-			log.Fatal("ListenAndServeTLS: ", err.String())
+			log.Fatal("ListenAndServeTLS: ", err.Error())
 		}
 	}()
 }
